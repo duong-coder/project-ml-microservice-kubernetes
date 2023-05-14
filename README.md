@@ -44,7 +44,23 @@ source .devops/bin/activate
 
 ### Kubernetes Steps
 
-* Setup and Configure Docker locally
-* Setup and Configure Kubernetes locally
-* Create Flask app in Container
-* Run via kubectl
+1. Setup and Configure Docker locally
+- install docker as described in the link.
+- Run `run_docker.sh`
+- Run `docker image list` to check all image.
+- Run `make_prediction.sh` to make prediction and copy/paste the logging info at terminal to `output_txt_files/docker_out.txt`
+
+2. Setup and Configure Kubernetes locally
+- Install virtualbox [link](https://download.virtualbox.org/virtualbox/7.0.8/VirtualBox-7.0.8-156879-Win.exe)
+- Install and setup minikube [link](https://minikube.sigs.k8s.io/docs/start/)
+- Run `minikube start` to start minikube
+- Run `kubectl get pods` to see which pods are running.
+- Run `run_kubernetes.sh`
+- Run `make_prediction.sh` to make prediction and copy/paste the logging info at terminal to `output_txt_files/kubernetes_out.txt`
+> Run `minikube delete` to delete minikube
+
+3. Create Flask app in Container
+- Run `run_docker.sh` to build and start the Flask app container.
+
+4. Run via kubectl
+- `kubectl create deploy ml-microservice-kubernetes-minikube --image="$dockerpath/ml-microservice-kubernetes"`
